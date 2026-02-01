@@ -1,14 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend
+  name: backend
 spec:
   replicas: 2
   template:
     spec:
+      serviceAccountName: backend-sa
       containers:
-      - name: frontend
-        image: frontend:latest
+      - name: backend
+        image: backend:latest
         envFrom:
         - configMapRef:
-            name: frontend-config
+            name: backend-config
+        - secretRef:
+            name: backend-secrets
